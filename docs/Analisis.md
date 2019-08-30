@@ -18,3 +18,6 @@ El enunciado habla de ramos inicialmente, y luego de flores (individuales) en lo
 * Los pedidos ya fueron generados y están en espera.
 * Se atiende según orden de llegada (FIFO) y de a un cliente por vez.
 * Hasta que no se termina de atender un cliente, no se atiende al siguiente.
+* El envío desde los puntos de distribución hasta los puntos de venta es inmediato.
+* Los ramos se transportan desde los centros de distribución a los puntos de venta de manera aleatoria.
+* Los cajones se transportan desde los campos de producción a los centros de distribución de manera aleatoria. 
