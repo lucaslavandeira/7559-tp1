@@ -10,11 +10,11 @@ El enunciado habla de ramos inicialmente, y luego de flores (individuales) en lo
 
 # Hipótesis
 
-*Un ramo de flores es la mínima unidad.
-*La cosecha de flores en los campos es una función del tiempo (U otro proceso que se lanza y genera flores?)
-*No hay límite de cajones de distribución.
-*El transporte de los cajones a los centros de distribución es independiente de la cosecha de flores (No hay tiempo de espera para seguir cosechando o está contemplado en la función de cosecha).
-*La cantidad de campos de producción, centros de distribución y puntos de venta deben ser mayor a cero (Un mínimo de un campo de producción, un centro de distribución y un punto de venta).
-*Los pedidos ya fueron generados y están en espera.
-*Se atiende según orden de llegada (FIFO) y de a un cliente por vez.
-*Hasta que no se termina de atender un cliente, no se atiende al siguiente.
+* Un ramo de flores es la mínima unidad.
+* La cosecha de flores en los campos es una función del tiempo (U otro proceso que se lanza y genera flores?)
+* No hay límite de cajones de distribución.
+* El transporte de los cajones a los centros de distribución es independiente de la cosecha de flores (No hay tiempo de espera para seguir cosechando o está contemplado en la función de cosecha).
+* La cantidad de campos de producción, centros de distribución y puntos de venta deben ser mayor a cero (Un mínimo de un campo de producción, un centro de distribución y un punto de venta).
+* Los pedidos ya fueron generados y están en espera.
+* Se atiende según orden de llegada (FIFO) y de a un cliente por vez.
+* Hasta que no se termina de atender un cliente, no se atiende al siguiente.
