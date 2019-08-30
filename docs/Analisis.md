@@ -8,4 +8,13 @@ La producción de flores es constante, es decir la simulación debe comenzar con
 
 El enunciado habla de ramos inicialmente, y luego de flores (individuales) en los puntos de venta. Asumimos que la unidad mínima en realidad son los ramos, y los pedidos hechos son de varios ramos ("flores"). Un pedido entonces podría ser de 10 ramos de rosas, y 5 de tulipanes, por ejemplo. A su vez, los ramos producidos por los campos, son de un tipo único de flores, no existen ramos que mezclen ambos tipos.
 
+# Hipótesis
 
+*Un ramo de flores es la mínima unidad.
+*La cosecha de flores en los campos es una función del tiempo (U otro proceso que se lanza y genera flores?)
+*No hay límite de cajones de distribución.
+*El transporte de los cajones a los centros de distribución es independiente de la cosecha de flores (No hay tiempo de espera para seguir cosechando o está contemplado en la función de cosecha).
+*La cantidad de campos de producción, centros de distribución y puntos de venta deben ser mayor a cero (Un mínimo de un campo de producción, un centro de distribución y un punto de venta).
+*Los pedidos ya fueron generados y están en espera.
+*Se atiende según orden de llegada (FIFO) y de a un cliente por vez.
+*Hasta que no se termina de atender un cliente, no se atiende al siguiente.
