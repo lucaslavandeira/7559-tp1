@@ -37,7 +37,7 @@ set(CMAKE_CXX_FLAGS "-Wall -Werror -std=c++11 -pedantic")
 file(GLOB SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 
 #Removing main out of the model in SOURCES
-list(REMOVE_ITEM SRC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
+list(REMOVE_ITEM SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
 
 #Add all the test files into TEST
 file(GLOB TEST ${CMAKE_CURRENT_SOURCE_DIR}/test/*.cpp)

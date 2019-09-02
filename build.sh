@@ -1,5 +1,5 @@
 #!/bin/bash
-mdkir build
+mkdir -p build
 cd build/
 cmake ..
 make
