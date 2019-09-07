@@ -1,9 +1,12 @@
 #include <iostream>
+#include <zconf.h>
 #include "production_center.h"
+#include "DistributionChain.h"
 
 int main(int argc, char* argv[]) {
-  ProductionCenter center;
-  std::cout << "Harvesting " << center.harvest() << " bouquets: " << std::endl;
-
-  return 0;
+    DistributionChain d;
+    d.create();
+    sleep(1);  // demosle tiempo a los forks a correr y hacer prints antes de salir
+    // Handler de salida limpia desde el main goes here
+    return 0;
 }
