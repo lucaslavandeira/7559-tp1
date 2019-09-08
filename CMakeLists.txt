@@ -48,7 +48,7 @@ file(GLOB TEST ${CMAKE_CURRENT_SOURCE_DIR}/test/*.cpp)
 #Make a library from the model
 add_library(Project_model ${SOURCES})
 
-add_executable(Project ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp src/DistributionChain.cpp src/DistributionChain.h)
+add_executable(Project ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
 
 #Link the model to the project
 target_link_libraries(Project Project_model)

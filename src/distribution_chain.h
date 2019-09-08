@@ -16,9 +16,7 @@ public:
     // Hay que laburar más el diseño de este return creo... Funciona OK para main,
     // pero para los puntos intermedios no resulta suficiente.
     int create();
-
-private:
-    void init_pipe(int *pipefds);
+    void interrupt_operations();
 };
 
 
