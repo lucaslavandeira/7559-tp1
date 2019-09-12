@@ -15,19 +15,29 @@ void Route::create_route(int pipefds[2]) {
   }  
 }
 
-void Route::send(int bouquets) {
-  //std::string msg = std::to_string(bouquets);
-  //write(pipefds[1], msg.c_str(), msg.size());  
-  write(this->pipefds[1], &bouquets, sizeof(int));
+void Route::send(std::string msg, size_t size) {
+  write(pipefds[1], (const char*) &size, 1);
+  write(pipefds[1], msg.c_str(), size);
 }
 
-int Route::receive() {
-  char data[sizeof(int)];
-  read(this->pipefds[0], data, 4);
-  //return std::atoi(data);
-  int value = (int) data[0];
+std::string Route::receive() {
+  char size;
 
-  return value;
+  read(pipefds[0], &size, 1);
+
+  char buff[BYTES_RECEIVE+1];
+  std::string s;
+
+  while (size > BYTES_RECEIVE) {
+    read(pipefds[0], &buff, BYTES_RECEIVE);
+    s.append(buff, BYTES_RECEIVE);
+    size -= BYTES_RECEIVE;
+  }
+
+  read(pipefds[0], &buff, size);
+  s.append(buff, size); 
+
+  return std::move(s);
 }
 
 Route::~Route() {

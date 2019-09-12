@@ -6,15 +6,16 @@
 #include "production_center.h"
 #include "distribution_center.h"
 #include "sells_center.h"
-#include "route.h"
+#include "production_route.h"
+#include "distribution_route.h"
 
 int DistributionChain::create() {
     DistributionCenter distribution_center;
     ProductionCenter production_center;
     SellsCenter sells_center;
 
-    Route production_route;
-    Route distribution_route;
+    ProductionRoute production_route;
+    DistributionRoute distribution_route;
 
     production_center.associate_route(production_route);
     distribution_center.associate_receive_route(production_route);

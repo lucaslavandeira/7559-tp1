@@ -1,19 +1,25 @@
 #ifndef DISTRIBUTION_CENTER_H
 #define DISTRIBUTION_CENTER_H
 
-#include "route.h"
+#include "production_route.h"
+#include "distribution_route.h"
+#include "flower_drawer.h"
+#include "flower_packet.h"
+
+#define PACKET_SIZE 2
 
 class DistributionCenter {
 public:
-  Route send_route;
-  Route recv_route;
-  int bouquets;
+  DistributionRoute send_route;
+  ProductionRoute recv_route;
+  int rose_bouquets;
+  int tulip_bouquets;
 
   DistributionCenter();
   void receive();
-  void transport();
-  void associate_receive_route(Route& route);
-  void associate_send_route(Route& route);
+  void transport(FlowerPacket& packet);
+  void associate_receive_route(ProductionRoute& route);
+  void associate_send_route(DistributionRoute& route);
   void work();
 };
 

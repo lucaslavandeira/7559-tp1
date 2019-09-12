@@ -31,10 +31,10 @@ class ProductionCenterTest : public ::testing::Test {
   ProductionCenter center;
 };
 
-TEST_F(ProductionCenterTest, production_initial_stock_should_be_zero) {
+/*TEST_F(ProductionCenterTest, production_initial_stock_should_be_zero) {
   EXPECT_EQ(0, center.stock_bouquet);
 }
 
 TEST_F(ProductionCenterTest, harvesting_returns_40_bouquets) {
   EXPECT_EQ(40, center.harvest());
-}
+}*/

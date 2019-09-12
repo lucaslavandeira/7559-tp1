@@ -1,17 +1,20 @@
 #ifndef PRODUCTION_CENTER_H
 #define PRODUCTION_CENTER_H
 
-#include "route.h"
+#include "production_route.h"
+#include "flower_drawer.h"
+
+#define BOUQUET_PRODUCTION 10
 
 class ProductionCenter {
 public:
   int stock_bouquet;
-  Route route;
+  ProductionRoute route;
 
   ProductionCenter();
-  void associate_route(Route& route);
-  void transport(int bouquets);
-  int harvest();
+  void associate_route(ProductionRoute& route);
+  void transport(FlowerDrawer drawer);
+  FlowerDrawer harvest();
   void work();
 };
 

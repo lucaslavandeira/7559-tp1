@@ -13,7 +13,7 @@ int main(int argc, char* argv[]) {
     GeneralSystem system;
 
     //TODO: reemplazar por argv
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 1; i++) {
       //TODO: agregar en chain "algo" similar a una Route para propagar el exit
       DistributionChain chain;
       int pid = fork();

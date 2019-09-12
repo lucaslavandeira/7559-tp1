@@ -1,15 +1,15 @@
 #ifndef SELLS_CENTER_H
 #define SELLS_CENTER_H
 
-#include "route.h"
+#include "distribution_route.h"
 
 class SellsCenter {
 public:
-  Route route;
+  DistributionRoute route;
 
   SellsCenter();
-  void associate_route(Route& route);
-  int receive();
+  void associate_route(DistributionRoute& route);
+  FlowerPacket receive();
   void work();
 };
 
