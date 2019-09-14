@@ -7,28 +7,15 @@
 
 #define INTERRUPT_CMD "q"
 
-int main(int argc, char* argv[]) {
-    bool father = true;
+bool init(GeneralSystem &system);
 
+int main(int argc, char* argv[]) {
     GeneralSystem system;
 
     //TODO: reemplazar por argv
-    for (int i = 0; i < 1; i++) {
-      //TODO: agregar en chain "algo" similar a una Route para propagar el exit
-      DistributionChain chain;
-      int pid = fork();
+    bool parent = init(system);
 
-      if (pid != 0) {
-        system.add_distribution_chain(chain);
-      }
-      else {
-        chain.create();
-        father = false;
-        break;
-      }       
-    }
-
-    if (father) {
+    if (parent) {
       bool wait_quit = true;
       std::string input;
 
@@ -46,8 +33,27 @@ int main(int argc, char* argv[]) {
 
     //Se podria hacer que el padre espere a todos los hijos si es necesario
 
-    if (father)
+    if (parent)
       std::cout << "Main termino exitosamente!!" << std::endl;
 
     return 0;
+}
+
+bool init(GeneralSystem &system) {
+    bool father = true;
+    for (int i = 0; i < 1; i++) {
+      //TODO: agregar en chain "algo" similar a una Route para propagar el exit
+      DistributionChain chain;
+      int pid = fork();
+
+      if (pid != 0) {
+        system.add_distribution_chain(chain);
+      }
+      else {
+        chain.create();
+        father = false;
+        break;
+      }
+    }
+    return father;
 }

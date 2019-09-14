@@ -2,3 +2,8 @@ build
 build/
 .vscode
 .vscode/
+
+# CLion dirs
+
+.idea
+cmake-build-debug/
