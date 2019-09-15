@@ -35,6 +35,6 @@ void ProductionCenter::work() {
         this->transport(drawer);
         sleep(1);
     }
-
+    this->route.close();
     std::cout << "Production center fue cerrado!!" << std::endl;
 }

@@ -1,7 +1,6 @@
 #include <unistd.h>
 #include <sys/wait.h> 
 #include <iostream>
-#include <cstring>
 #include "distribution_chain.h"
 #include "production_center.h"
 #include "distribution_center.h"
@@ -26,6 +25,7 @@ int DistributionChain::create() {
 
     if (pid != 0) {
         production_center.work();
+        waitpid(pid, nullptr, 0);
         return pid;
     }
 
@@ -33,8 +33,10 @@ int DistributionChain::create() {
 
     if (pid != 0) {
         distribution_center.work();
+        waitpid(pid, nullptr, 0);
+        std::cout << "LLego acá?" << std::endl;
         return pid;
-    } 
+    }
     
     sells_center.work();
 

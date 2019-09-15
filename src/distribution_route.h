@@ -11,6 +11,7 @@ public:
   DistributionRoute();
   void send(FlowerPacket& packet);
   FlowerPacket receive();
+  void close();
 };
 
 #endif

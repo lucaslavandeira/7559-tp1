@@ -11,6 +11,7 @@ public:
   ProductionRoute();
   void send(FlowerDrawer& drawer);
   FlowerDrawer receive();
+  void close();
 };
 
 #endif

@@ -18,7 +18,17 @@ void DistributionRoute::send(FlowerPacket& packet) {
 
 FlowerPacket DistributionRoute::receive() {
   std::string type = this->route.receive();
-  std::string ammount = this->route.receive();
+  if (type == "close") {
+      throw 1;
+  }
 
+  std::string ammount = this->route.receive();
+  if (type == "close") {
+      throw 1;
+  }
   return FlowerPacket(std::stoi(ammount), type);
+}
+
+void DistributionRoute::close() {
+    this->route.close();
 }
