@@ -14,6 +14,8 @@ public:
   void send(std::string msg, size_t size);
   std::string receive();
   ~Route();
+
+    void close();
 };
 
 #endif

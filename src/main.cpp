@@ -1,53 +1,50 @@
 #include <iostream>
-#include <zconf.h>
-#include <sys/wait.h> 
+#include <wait.h>
 #include "production_center.h"
-#include "distribution_chain.h"
 #include "general_system.h"
+#include "ipc/ExitFlag.h"
 
 #define INTERRUPT_CMD "q"
 
-int main(int argc, char* argv[]) {
-    bool father = true;
+std::vector<int> init(GeneralSystem &system);
 
+void read_exit_command();
+
+int main(int argc, char *argv[]) {
     GeneralSystem system;
+    ExitFlag flag(false);
 
     //TODO: reemplazar por argv
-    for (int i = 0; i < 1; i++) {
-      //TODO: agregar en chain "algo" similar a una Route para propagar el exit
-      DistributionChain chain;
-      int pid = fork();
+    std::vector<int> ids = init(system);
 
-      if (pid != 0) {
-        system.add_distribution_chain(chain);
-      }
-      else {
-        chain.create();
-        father = false;
-        break;
-      }       
+    read_exit_command();
+    std::cout << "Saliendo..." << std::endl;
+    flag.exit();
+
+    for (int pid : ids) {
+        waitpid(pid, nullptr, 0);
     }
+    return 0;
+}
 
-    if (father) {
-      bool wait_quit = true;
-      std::string input;
+void read_exit_command() {
+    std::string input;
 
-      while (wait_quit) {
+    while (true) {
         std::cin >> input;
 
-        if (!input.compare(INTERRUPT_CMD)) {
-          wait_quit = false;
-          system.interrupt_operations();
+        if (input == INTERRUPT_CMD) {
+            return;
         }
-      }
+
     }
+}
 
-    //wait(NULL);
-
-    //Se podria hacer que el padre espere a todos los hijos si es necesario
-
-    if (father)
-      std::cout << "Main termino exitosamente!!" << std::endl;
-
-    return 0;
+std::vector<int> init(GeneralSystem &system) {
+    std::vector<int> pids;
+    pids.reserve(1);
+    for (int i = 0; i < 1; i++) {
+        pids.push_back(system.create_distribution_chain());
+    }
+    return pids;
 }

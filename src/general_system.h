@@ -4,12 +4,17 @@
 #include <vector>
 #include "distribution_chain.h"
 
+struct chain_process {
+    int pid;
+    DistributionChain chain;
+};
+
 class GeneralSystem {
 public:
-  std::vector<DistributionChain> chains;
+  std::vector<chain_process> chains;
 
   GeneralSystem();
-  void add_distribution_chain(DistributionChain& chain);
+  int create_distribution_chain();
   void interrupt_operations();
 };
 

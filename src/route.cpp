@@ -4,6 +4,9 @@
 #include <cstring>
 #include <fcntl.h>
 
+
+#define CLOSE_MSG "close"
+
 Route::Route() {
   create_route(this->pipefds);
 }
@@ -41,6 +44,10 @@ std::string Route::receive() {
 }
 
 Route::~Route() {
-  close(this->pipefds[0]);
-  close(this->pipefds[1]);
+  ::close(this->pipefds[0]);
+  ::close(this->pipefds[1]);
+}
+
+void Route::close() {
+    send(CLOSE_MSG, strlen(CLOSE_MSG));
 }
