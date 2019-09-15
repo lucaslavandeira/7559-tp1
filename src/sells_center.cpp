@@ -1,5 +1,6 @@
 #include "sells_center.h"
 #include "route.h"
+#include "ipc/ExitFlag.h"
 #include <iostream>
 #include <zconf.h>
 
@@ -15,12 +16,10 @@ FlowerPacket SellsCenter::receive() {
 }
 
 void SellsCenter::work() {
-  //Sleep para recibir todo - Temporal
-  int i = 0;
-  while (i < 5) {
+  ExitFlag flag;
+  while (flag.read()) {
     FlowerPacket packet = this->receive();
     std::cout << "Hola del punto de venta! Recibí " << packet.ammount << " de " << packet.type << " desde el centro!!!" << std::endl;
-    i++;
     sleep(1);
   }
 

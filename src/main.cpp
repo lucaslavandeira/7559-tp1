@@ -1,59 +1,50 @@
 #include <iostream>
-#include <zconf.h>
-#include <sys/wait.h> 
+#include <wait.h>
 #include "production_center.h"
-#include "distribution_chain.h"
 #include "general_system.h"
+#include "ipc/ExitFlag.h"
 
 #define INTERRUPT_CMD "q"
 
-bool init(GeneralSystem &system);
+std::vector<int> init(GeneralSystem &system);
 
-int main(int argc, char* argv[]) {
+void read_exit_command();
+
+int main(int argc, char *argv[]) {
     GeneralSystem system;
+    ExitFlag flag(false);
 
     //TODO: reemplazar por argv
-    bool parent = init(system);
+    std::vector<int> ids = init(system);
 
-    if (parent) {
-      bool wait_quit = true;
-      std::string input;
+    read_exit_command();
+    std::cout << "Saliendo..." << std::endl;
+    flag.exit();
 
-      while (wait_quit) {
-        std::cin >> input;
-
-        if (!input.compare(INTERRUPT_CMD)) {
-          wait_quit = false;
-          system.interrupt_operations();
-        }
-      }
+    for (int pid : ids) {
+        waitpid(pid, nullptr, 0);
     }
-
-    //wait(NULL);
-
-    //Se podria hacer que el padre espere a todos los hijos si es necesario
-
-    if (parent)
-      std::cout << "Main termino exitosamente!!" << std::endl;
-
     return 0;
 }
 
-bool init(GeneralSystem &system) {
-    bool father = true;
-    for (int i = 0; i < 1; i++) {
-      //TODO: agregar en chain "algo" similar a una Route para propagar el exit
-      DistributionChain chain;
-      int pid = fork();
+void read_exit_command() {
+    std::string input;
 
-      if (pid != 0) {
-        system.add_distribution_chain(chain);
-      }
-      else {
-        chain.create();
-        father = false;
-        break;
-      }
+    while (true) {
+        std::cin >> input;
+
+        if (input == INTERRUPT_CMD) {
+            return;
+        }
+
     }
-    return father;
+}
+
+std::vector<int> init(GeneralSystem &system) {
+    std::vector<int> pids;
+    pids.reserve(1);
+    for (int i = 0; i < 1; i++) {
+        pids.push_back(system.create_distribution_chain());
+    }
+    return pids;
 }

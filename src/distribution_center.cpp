@@ -3,6 +3,7 @@
 #include <iostream>
 #include "flower_drawer.h"
 #include "flower_packet.h"
+#include "ipc/ExitFlag.h"
 
 DistributionCenter::DistributionCenter() {
   this->rose_bouquets = 0;
@@ -23,9 +24,6 @@ void DistributionCenter::receive() {
   this->rose_bouquets += drawer.rose_bouquets;
   this->tulip_bouquets += drawer.tulip_bouquets;
 
-  std::cout << "Distribution center recibi rosas: " << drawer.rose_bouquets << std::endl;
-  std::cout << "Distribution center recibi tulipanes: " << drawer.tulip_bouquets << std::endl;
-
   while (this->rose_bouquets >= PACKET_SIZE) {
     this->rose_bouquets -= PACKET_SIZE;
     FlowerPacket packet(PACKET_SIZE, "rose");
@@ -44,10 +42,9 @@ void DistributionCenter::transport(FlowerPacket& packet) {
 }
 
 void DistributionCenter::work() {
-  while(true) {
+  ExitFlag flag;
+  while(flag.read()) {
     this->receive();
-
-    break;
   }
 
   std::cout << "Distribution center fue cerrado!!" << std::endl;
