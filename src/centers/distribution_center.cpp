@@ -1,9 +1,6 @@
 #include "distribution_center.h"
-#include "../routes/route.h"
 #include <iostream>
-#include "../flower_drawer.h"
-#include "../flower_packet.h"
-#include "../ipc/ExitFlag.h"
+
 
 DistributionCenter::DistributionCenter() {
     this->rose_bouquets = 0;
@@ -23,7 +20,27 @@ void DistributionCenter::receive() {
 
   this->rose_bouquets += drawer.rose_bouquets;
   this->tulip_bouquets += drawer.tulip_bouquets;
+}
 
+void DistributionCenter::transport(FlowerPacket &packet) {
+    this->send_route.send(packet);
+}
+
+void DistributionCenter::work() {
+    while (true) {
+        try {
+            this->receive();
+            this->send_to_center();
+        } catch(int e) {
+            break;
+        }
+    }
+
+    std::cout << "Distribution center fue cerrado!!" << std::endl;
+    this->send_route.close();
+}
+
+void DistributionCenter::send_to_center() {
     while (this->rose_bouquets >= PACKET_SIZE) {
         this->rose_bouquets -= PACKET_SIZE;
         FlowerPacket packet(PACKET_SIZE, "rose");
@@ -35,21 +52,4 @@ void DistributionCenter::receive() {
         FlowerPacket packet(PACKET_SIZE, "tulip");
         this->transport(packet);
     }
-}
-
-void DistributionCenter::transport(FlowerPacket &packet) {
-    this->send_route.send(packet);
-}
-
-void DistributionCenter::work() {
-    while (true) {
-        try {
-            this->receive();
-        } catch(int e) {
-            break;
-        }
-    }
-
-    std::cout << "Distribution center fue cerrado!!" << std::endl;
-    this->send_route.close();
 }
