@@ -46,12 +46,12 @@ list(REMOVE_ITEM SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
 file(GLOB TEST ${CMAKE_CURRENT_SOURCE_DIR}/test/*.cpp)
 
 #Make a library from the model
-add_library(Project_model ${SOURCES})
+add_library(Project_model ${SOURCES} src/config.h)
 
 add_executable(Project ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp src/ipc/ExitFlag.cpp src/ipc/ExitFlag.h
         src/centers/production_center.cpp src/centers/sells_center.cpp src/centers/distribution_center.cpp
         src/routes/route.cpp src/routes/production_route.cpp src/routes/distribution_route.cpp
-)
+        src/util/home_dir.cpp src/util/home_dir.h src/util/get_number_from_file.cpp src/util/get_number_from_file.h src/util/create_directory_if_not_exists.cpp src/util/create_directory_if_not_exists.h)
 
 #Link the model to the project
 target_link_libraries(Project Project_model)

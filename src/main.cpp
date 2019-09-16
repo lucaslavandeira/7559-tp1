@@ -1,8 +1,7 @@
 #include <iostream>
 #include <getopt.h>
-#include "centers/production_center.h"
 #include "general_system.h"
-#include "ipc/ExitFlag.h"
+#include "util/get_number_from_file.h"
 
 #define INTERRUPT_CMD "q"
 

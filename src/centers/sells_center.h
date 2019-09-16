@@ -17,6 +17,10 @@ public:
 
 private:
     FlowerPacket receive();
+    void init_flower(const std::string& type);
+
+    std::string flower_path(const std::string &type) const;
+    void save_inventory(const std::string& type);
 };
 
 #endif
