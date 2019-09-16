@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "distribution_chain.h"
+#include "ipc/ExitFlag.h"
 
 struct chain_process {
     int pid;
@@ -10,12 +11,15 @@ struct chain_process {
 };
 
 class GeneralSystem {
+    int workers_count;
+    ExitFlag flag;
 public:
   std::vector<chain_process> chains;
 
-  GeneralSystem();
+  GeneralSystem(int workers_count);
   int create_distribution_chain();
-  void interrupt_operations();
+  void init();
+  void finish();
 };
 
 #endif
