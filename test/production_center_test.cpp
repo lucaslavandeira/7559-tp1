@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "../src/production_center.h"
+#include "../src/centers/production_center.h"
 
 class ProductionCenterTest : public ::testing::Test {
  protected:

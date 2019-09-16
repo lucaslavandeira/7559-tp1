@@ -1,10 +1,10 @@
 #ifndef DISTRIBUTION_CENTER_H
 #define DISTRIBUTION_CENTER_H
 
-#include "production_route.h"
-#include "distribution_route.h"
-#include "flower_drawer.h"
-#include "flower_packet.h"
+#include "../routes/production_route.h"
+#include "../routes/distribution_route.h"
+#include "../flower_drawer.h"
+#include "../flower_packet.h"
 
 #define PACKET_SIZE 2
 

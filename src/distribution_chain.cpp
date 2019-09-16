@@ -2,11 +2,11 @@
 #include <sys/wait.h> 
 #include <iostream>
 #include "distribution_chain.h"
-#include "production_center.h"
-#include "distribution_center.h"
-#include "sells_center.h"
-#include "production_route.h"
-#include "distribution_route.h"
+#include "centers/production_center.h"
+#include "centers/distribution_center.h"
+#include "centers/sells_center.h"
+#include "routes/production_route.h"
+#include "routes/distribution_route.h"
 
 int DistributionChain::create() {
     DistributionCenter distribution_center;

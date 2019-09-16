@@ -1,10 +1,10 @@
 #include "production_center.h"
-#include "production_route.h"
+#include "../routes/production_route.h"
 #include <random>
 #include <iostream>
 #include <zconf.h>
-#include "flower_drawer.h"
-#include "ipc/ExitFlag.h"
+#include "../flower_drawer.h"
+#include "../ipc/ExitFlag.h"
 
 ProductionCenter::ProductionCenter() {
     srand(time(NULL));

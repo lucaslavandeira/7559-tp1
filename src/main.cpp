@@ -1,6 +1,6 @@
 #include <iostream>
 #include <wait.h>
-#include "production_center.h"
+#include "centers/production_center.h"
 #include "general_system.h"
 #include "ipc/ExitFlag.h"
 

@@ -1,9 +1,9 @@
 #include "distribution_center.h"
-#include "route.h"
+#include "../routes/route.h"
 #include <iostream>
-#include "flower_drawer.h"
-#include "flower_packet.h"
-#include "ipc/ExitFlag.h"
+#include "../flower_drawer.h"
+#include "../flower_packet.h"
+#include "../ipc/ExitFlag.h"
 
 DistributionCenter::DistributionCenter() {
     this->rose_bouquets = 0;
