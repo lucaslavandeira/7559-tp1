@@ -34,7 +34,6 @@ int DistributionChain::create() {
     if (pid != 0) {
         distribution_center.work();
         waitpid(pid, nullptr, 0);
-        std::cout << "LLego acá?" << std::endl;
         return pid;
     }
     

@@ -1,6 +1,4 @@
 #include "sells_center.h"
-#include "../routes/route.h"
-#include <iostream>
 #include <zconf.h>
 
 SellsCenter::SellsCenter() = default;
@@ -22,13 +20,9 @@ void SellsCenter::work() {
     while (true) {
         try {
             FlowerPacket packet = this->receive();
-            std::cout << "Hola del punto de venta! Recibí " << packet.ammount << " de " << packet.type
-                      << " desde el centro!!!" << std::endl;
         } catch (int e) {
             break;
         }
         sleep(1);
     }
-
-    std::cout << "Sells center fue cerrado!! Tenía " << flowers["tulip"] << " tulips" << std::endl;
 }

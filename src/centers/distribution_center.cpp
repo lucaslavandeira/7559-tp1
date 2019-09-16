@@ -1,5 +1,4 @@
 #include "distribution_center.h"
-#include <iostream>
 
 
 DistributionCenter::DistributionCenter() {
@@ -36,7 +35,6 @@ void DistributionCenter::work() {
         }
     }
 
-    std::cout << "Distribution center fue cerrado!!" << std::endl;
     this->send_route.close();
 }
 
