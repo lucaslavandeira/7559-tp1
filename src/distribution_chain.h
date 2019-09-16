@@ -10,12 +10,13 @@
  * Maneja toda la parte del armado de concurrencia e IPC (pero no el mantenimiento!).
  */
 class DistributionChain {
-    void* config = nullptr; // Placeholder para config a futuro
+    int chain_id;
 public:
+    explicit DistributionChain(int chain_id);
     // Devuelve el PID del hijo que se crea.
     // Hay que laburar más el diseño de este return creo... Funciona OK para main,
     // pero para los puntos intermedios no resulta suficiente.
-    int create();
+    int start();
 };
 
 

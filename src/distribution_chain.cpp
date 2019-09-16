@@ -8,7 +8,9 @@
 #include "routes/production_route.h"
 #include "routes/distribution_route.h"
 
-int DistributionChain::create() {
+DistributionChain::DistributionChain(int chain_id) : chain_id(chain_id) {}
+
+int DistributionChain::start() {
     DistributionCenter distribution_center;
     ProductionCenter production_center;
     SellsCenter sells_center;

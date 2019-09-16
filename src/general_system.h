@@ -5,19 +5,14 @@
 #include "distribution_chain.h"
 #include "ipc/ExitFlag.h"
 
-struct chain_process {
-    int pid;
-    DistributionChain chain;
-};
-
 class GeneralSystem {
     int workers_count;
     ExitFlag flag;
 public:
-  std::vector<chain_process> chains;
+  std::vector<int> chain_pids;
 
   explicit GeneralSystem(int workers_count);
-  int create_distribution_chain();
+  int create_distribution_chain(int chain_id);
   void init();
   void finish();
 };

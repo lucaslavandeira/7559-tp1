@@ -1,6 +1,5 @@
 #include "general_system.h"
 #include "distribution_chain.h"
-#include <vector>
 #include <zconf.h>
 #include <cstdlib>
 #include <wait.h>
@@ -10,34 +9,30 @@ GeneralSystem::GeneralSystem(int workers_count) :
     flag(false) {
 }
 
-int GeneralSystem::create_distribution_chain() {
+int GeneralSystem::create_distribution_chain(int chain_id) {
 
-    DistributionChain chain;
+    DistributionChain chain(chain_id);
     int pid = fork();
     if (pid != 0) { // Parent
-        struct chain_process process;
-        process.chain = chain;
-        process.pid = pid;
-        this->chains.push_back(process);
+        this->chain_pids.push_back(pid);
         return pid;
     }
 
     // Forks multiple times, all infinite loops until exit command
-    chain.create();
+    chain.start();
     std::exit(0);
     return 0;
 }
 
 void GeneralSystem::init() {
     for (int i = 0; i < workers_count; ++i) {
-        struct chain_process c;
-        create_distribution_chain();
+        create_distribution_chain(i);
     }
 }
 
 void GeneralSystem::finish() {
     flag.exit();
-    for (auto chain: chains) {
-        waitpid(chain.pid, nullptr, 0);
+    for (auto pid: chain_pids) {
+        waitpid(pid, nullptr, 0);
     }
 }
