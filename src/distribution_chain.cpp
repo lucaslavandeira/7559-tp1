@@ -11,9 +11,9 @@
 DistributionChain::DistributionChain(int chain_id) : chain_id(chain_id) {}
 
 int DistributionChain::start() {
-    DistributionCenter distribution_center;
-    ProductionCenter production_center;
-    SellsCenter sells_center;
+    DistributionCenter distribution_center(chain_id);
+    ProductionCenter production_center(chain_id);
+    SellsCenter sells_center(chain_id);
 
     ProductionRoute production_route;
     DistributionRoute distribution_route;

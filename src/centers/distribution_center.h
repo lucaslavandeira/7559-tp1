@@ -10,6 +10,7 @@
 #define PACKET_SIZE 2
 
 class DistributionCenter {
+    int chain_id;
     std::unordered_map<std::string, int> flowers;
 public:
   DistributionRoute send_route;
@@ -17,7 +18,7 @@ public:
   int rose_bouquets;
   int tulip_bouquets;
 
-  DistributionCenter();
+  explicit DistributionCenter(int chain_id);
   void receive();
   void send_to_center();
 

@@ -7,15 +7,19 @@
 #define BOUQUET_PRODUCTION 10
 
 class ProductionCenter {
+    int chain_id;
 public:
-  int stock_bouquet;
-  ProductionRoute route;
+    ProductionRoute route;
 
-  ProductionCenter();
-  void associate_route(ProductionRoute& route);
-  void transport(FlowerDrawer drawer);
-  FlowerDrawer harvest();
-  void work();
+    explicit ProductionCenter(int chain_id);
+
+    void associate_route(ProductionRoute &route);
+
+    void transport(FlowerDrawer drawer);
+
+    FlowerDrawer harvest();
+
+    void work();
 };
 
 #endif

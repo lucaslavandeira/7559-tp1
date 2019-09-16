@@ -6,9 +6,8 @@
 #include "../flower_drawer.h"
 #include "../ipc/ExitFlag.h"
 
-ProductionCenter::ProductionCenter() {
+ProductionCenter::ProductionCenter(int chain_id) : chain_id(chain_id) {
     srand(time(NULL));
-    this->stock_bouquet = 0;
 }
 
 FlowerDrawer ProductionCenter::harvest() {
@@ -30,7 +29,7 @@ void ProductionCenter::transport(FlowerDrawer drawer) {
 void ProductionCenter::work() {
     ExitFlag flag;
     while (flag.read()) {
-        FlowerDrawer drawer = ProductionCenter().harvest();
+        FlowerDrawer drawer = harvest();
 
         this->transport(drawer);
         sleep(1);

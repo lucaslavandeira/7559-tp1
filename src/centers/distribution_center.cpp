@@ -1,7 +1,7 @@
 #include "distribution_center.h"
 
 
-DistributionCenter::DistributionCenter() {
+DistributionCenter::DistributionCenter(int chain_id) : chain_id(chain_id) {
     this->rose_bouquets = 0;
     this->tulip_bouquets = 0;
 }

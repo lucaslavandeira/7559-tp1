@@ -1,7 +1,7 @@
 #include "sells_center.h"
 #include <zconf.h>
 
-SellsCenter::SellsCenter() = default;
+SellsCenter::SellsCenter(int chain_id) : chain_id(chain_id) {}
 
 void SellsCenter::associate_route(DistributionRoute &distributionRoute) {
     this->route = distributionRoute;
