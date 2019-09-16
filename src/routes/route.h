@@ -6,16 +6,18 @@
 #define BYTES_RECEIVE 50
 
 class Route {
+    int pipefds[2]{};
 public:
-  int pipefds[2];
 
-  Route();
-  void create_route(int pipefds[2]);
-  void send(std::string msg, size_t size);
-  std::string receive();
-  ~Route();
-
+    Route();
+    void send(const std::string &msg, size_t size);
+    std::string receive();
     void close();
+    ~Route();
+
+private:
+    void create_route();
+
 };
 
 #endif
