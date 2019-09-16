@@ -16,7 +16,7 @@ class GeneralSystem {
 public:
   std::vector<chain_process> chains;
 
-  GeneralSystem(int workers_count);
+  explicit GeneralSystem(int workers_count);
   int create_distribution_chain();
   void init();
   void finish();

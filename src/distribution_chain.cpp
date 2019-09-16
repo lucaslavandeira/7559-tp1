@@ -45,7 +45,3 @@ int DistributionChain::create() {
 
     return pid;         
 }
-
-void DistributionChain::interrupt_operations() {
-
-}

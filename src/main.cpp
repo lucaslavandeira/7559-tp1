@@ -13,7 +13,6 @@ void read_exit_command();
 int get_workers(int argc, char **argv);
 
 int main(int argc, char *argv[]) {
-
     int workers_count = get_workers(argc, argv);
     GeneralSystem system(workers_count);
     system.init();
