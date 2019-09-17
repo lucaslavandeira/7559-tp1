@@ -5,6 +5,7 @@
 #include <zconf.h>
 #include "../flower_drawer.h"
 #include "../ipc/ExitFlag.h"
+#include "../flower_bouquet.h"
 
 ProductionCenter::ProductionCenter(int chain_id) : chain_id(chain_id) {
     srand(time(NULL));
@@ -15,7 +16,17 @@ FlowerDrawer ProductionCenter::harvest() {
 
     int ammount_tulips_bouquets = BOUQUET_PRODUCTION - ammount_rose_bouquets;
 
-    return FlowerDrawer(ammount_rose_bouquets, ammount_tulips_bouquets);
+    std::vector<FlowerBouquet> flowers;
+
+    for (int i = 0; i < ammount_rose_bouquets; i++) {
+        flowers.push_back(FlowerBouquet("rose", this->chain_id));
+    }
+
+    for (int i = 0; i < ammount_tulips_bouquets; i++) {
+        flowers.push_back(FlowerBouquet("tulip", this->chain_id));
+    }
+
+    return FlowerDrawer(std::move(flowers), this->chain_id);
 }
 
 void ProductionCenter::associate_route(ProductionRoute &route) {

@@ -1,10 +1,13 @@
 #include "flower_drawer.h"
 
-FlowerDrawer::FlowerDrawer(int rose_bouquets, int tulip_bouquets) {
-  if (rose_bouquets + tulip_bouquets > DRAWER_CAPACITY) {
+#include "flower_bouquet.h"
+#include <vector>
+
+FlowerDrawer::FlowerDrawer(std::vector<FlowerBouquet> flowers, int productor_id) {
+  if (flowers.size() > DRAWER_CAPACITY) {
     //Throw exception?
   }
 
-  this->rose_bouquets = rose_bouquets;
-  this->tulip_bouquets = tulip_bouquets;
+  this->flowers = flowers;
+  this->productor_id = productor_id;
 }

@@ -28,7 +28,7 @@ class ProductionCenterTest : public ::testing::Test {
   }
 
   // Objects declared here can be used by all tests in the test suite for ProductionCenter.
-  ProductionCenter center;
+  // ProductionCenter center;
 };
 
 /*TEST_F(ProductionCenterTest, production_initial_stock_should_be_zero) {

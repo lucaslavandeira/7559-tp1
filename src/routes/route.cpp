@@ -3,10 +3,8 @@
 #include <iostream>
 #include <cstring>
 
-
-#define CLOSE_MSG "close"
-
-Route::Route() {
+Route::Route(std::string eof_msg) {
+    this->eof_msg = eof_msg;
     pipefds[0] = {0};
     pipefds[1] = {0};
     create_route();
@@ -27,7 +25,10 @@ void Route::send(const std::string &msg, size_t size) {
 std::string Route::receive() {
     char size;
 
-    read(pipefds[0], &size, 1);
+    int bytes = read(pipefds[0], &size, 1);
+
+    if (!bytes)
+        return this->eof_msg;
 
     char buff[BYTES_RECEIVE + 1];
     std::string s;
@@ -47,8 +48,4 @@ std::string Route::receive() {
 Route::~Route() {
     ::close(this->pipefds[0]);
     ::close(this->pipefds[1]);
-}
-
-void Route::close() {
-    send(CLOSE_MSG, strlen(CLOSE_MSG));
 }

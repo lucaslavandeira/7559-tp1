@@ -3,9 +3,12 @@
 
 #include "route.h"
 #include "../flower_drawer.h"
+#include <string>
 
 class ProductionRoute {
 private:
+  static const std::string send_msg;
+  static const std::string close_msg;
   Route route;
 public:
   ProductionRoute();

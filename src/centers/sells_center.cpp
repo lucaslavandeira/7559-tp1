@@ -22,10 +22,16 @@ void SellsCenter::associate_route(DistributionRoute &distributionRoute) {
 
 FlowerPacket SellsCenter::receive() {
     FlowerPacket packet = this->route.receive();
+
     if (!flowers.count(packet.type)) {
         flowers[packet.type] = 0;
     }
-    flowers[packet.type] = flowers[packet.type] + packet.ammount;
+
+    //Temporalmente para testear
+    flowers[packet.type] = flowers[packet.type] + packet.size();
+
+    std::cout << "Recibi " << packet.flowers.size() << " de " << packet.type << std::endl;
+
     return packet;
 }
 
@@ -46,6 +52,8 @@ void SellsCenter::work() {
 void SellsCenter::init_flower(const std::string &type) {
     std::string stream = flower_path(type);
     flowers[type] = get_number_from_file(stream);
+
+    std::cout << "Cargue " << flowers[type] << " de " << type << std::endl;
 }
 
 std::string SellsCenter::flower_path(const std::string &type) const {

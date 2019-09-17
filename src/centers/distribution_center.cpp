@@ -1,5 +1,8 @@
 #include "distribution_center.h"
-
+#include "../flower_bouquet.h"
+#include <map>
+#include <vector>
+#include <iostream>
 
 DistributionCenter::DistributionCenter(int chain_id) : chain_id(chain_id) {
     this->rose_bouquets = 0;
@@ -15,10 +18,13 @@ void DistributionCenter::associate_receive_route(ProductionRoute &route) {
 }
 
 void DistributionCenter::receive() {
-  FlowerDrawer drawer = this->recv_route.receive();
+    FlowerDrawer drawer = this->recv_route.receive();
 
-  this->rose_bouquets += drawer.rose_bouquets;
-  this->tulip_bouquets += drawer.tulip_bouquets;
+    std::vector<FlowerBouquet> flowers_from_drawer = drawer.flowers;
+
+    for (int i = 0; i < (int) flowers_from_drawer.size(); i++) {
+        this->flowers[flowers_from_drawer[i].type].push_back(flowers_from_drawer[i]);
+    }
 }
 
 void DistributionCenter::transport(FlowerPacket &packet) {
@@ -39,15 +45,15 @@ void DistributionCenter::work() {
 }
 
 void DistributionCenter::send_to_center() {
-    while (this->rose_bouquets >= PACKET_SIZE) {
-        this->rose_bouquets -= PACKET_SIZE;
-        FlowerPacket packet(PACKET_SIZE, "rose");
-        this->transport(packet);
-    }
+    for (auto& it : this->flowers) {
+        if (this->flowers[it.first].size() >= PACKET_SIZE) {
+            std::vector<FlowerBouquet> send_flowers(it.second.begin(), it.second.begin() + PACKET_SIZE);
 
-    while (this->tulip_bouquets >= PACKET_SIZE) {
-        this->tulip_bouquets -= PACKET_SIZE;
-        FlowerPacket packet(PACKET_SIZE, "tulip");
-        this->transport(packet);
-    }
+            FlowerPacket packet(std::move(send_flowers), it.first);
+
+            this->transport(packet);
+
+            it.second.erase(it.second.begin(), it.second.begin() + PACKET_SIZE);
+        }
+    }    
 }

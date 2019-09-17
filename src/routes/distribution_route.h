@@ -6,6 +6,8 @@
 
 class DistributionRoute {
 private:
+  static const std::string send_msg;
+  static const std::string close_msg;
   Route route;
 public:
   DistributionRoute();

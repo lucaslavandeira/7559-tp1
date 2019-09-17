@@ -37,7 +37,13 @@ add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
 set(CMAKE_CXX_FLAGS "-Wall -Werror -std=c++11 -pedantic")
 
 #Add all the sources of the model into SOURCES
-file(GLOB SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
+file(GLOB SOURCES
+${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/src/util/*.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/src/routes/*.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/src/ipc/*.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/src/centers/*.cpp
+)
 
 #Removing main out of the model in SOURCES
 list(REMOVE_ITEM SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
@@ -48,13 +54,15 @@ file(GLOB TEST ${CMAKE_CURRENT_SOURCE_DIR}/test/*.cpp)
 #Make a library from the model
 add_library(Project_model ${SOURCES} src/config.h)
 
-add_executable(Project ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp src/ipc/ExitFlag.cpp src/ipc/ExitFlag.h
-        src/centers/production_center.cpp src/centers/sells_center.cpp src/centers/distribution_center.cpp
-        src/routes/route.cpp src/routes/production_route.cpp src/routes/distribution_route.cpp
-        src/util/home_dir.cpp src/util/home_dir.h src/util/get_number_from_file.cpp src/util/get_number_from_file.h src/util/create_directory_if_not_exists.cpp src/util/create_directory_if_not_exists.h)
+add_executable(Project ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
 
 #Link the model to the project
 target_link_libraries(Project Project_model)
+target_include_directories(Project PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/util)
+target_include_directories(Project PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/routes)
+target_include_directories(Project PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/centers)
+target_include_directories(Project PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/ipc)
+
 
 add_executable(Test ${TEST})
 

@@ -6,12 +6,13 @@
 #include "../routes/distribution_route.h"
 #include "../flower_drawer.h"
 #include "../flower_packet.h"
-
-#define PACKET_SIZE 2
+#include "../flower_bouquet.h"
+#include <vector>
 
 class DistributionCenter {
     int chain_id;
-    std::unordered_map<std::string, int> flowers;
+
+    std::unordered_map<std::string, std::vector<FlowerBouquet>> flowers;
 public:
   DistributionRoute send_route;
   ProductionRoute recv_route;

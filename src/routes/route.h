@@ -7,12 +7,11 @@
 
 class Route {
     int pipefds[2]{};
+    std::string eof_msg;
 public:
-
-    Route();
+    Route(std::string eof_msg);
     void send(const std::string &msg, size_t size);
     std::string receive();
-    void close();
     ~Route();
 
 private:

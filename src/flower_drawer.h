@@ -1,14 +1,18 @@
 #ifndef FLOWER_DRAWER_H
 #define FLOWER_DRAWER_H
 
+#include "flower_bouquet.h"
+#include <vector>
+
 #define DRAWER_CAPACITY 10
+
 
 class FlowerDrawer {
 public:
-  int rose_bouquets;
-  int tulip_bouquets;
+  std::vector<FlowerBouquet> flowers;
+  int productor_id;
 
-  FlowerDrawer(int rose_bouquets, int tulip_bouquets);
+  FlowerDrawer(std::vector<FlowerBouquet> flowers, int productor_id);
 };
 
 #endif
