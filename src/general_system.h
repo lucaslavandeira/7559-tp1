@@ -6,14 +6,16 @@
 #include "ipc/ExitFlag.h"
 
 class GeneralSystem {
+private:
+    std::vector<int> chain_pids;
     int workers_count;
     ExitFlag flag;
-public:
-  std::vector<int> chain_pids;
 
+    int create_distribution_chain(int chain_id);
+    int create_statistics_center();
+public:
   explicit GeneralSystem(int workers_count);
-  int create_distribution_chain(int chain_id);
-  void init();
+  int init();
   void finish();
 };
 

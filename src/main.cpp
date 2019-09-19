@@ -2,6 +2,8 @@
 #include <getopt.h>
 #include "general_system.h"
 #include "util/get_number_from_file.h"
+#include <fcntl.h>
+#include "ipc/sells_route.h"
 
 #define INTERRUPT_CMD "q"
 
@@ -14,7 +16,10 @@ int get_workers(int argc, char **argv);
 int main(int argc, char *argv[]) {
     int workers_count = get_workers(argc, argv);
     GeneralSystem system(workers_count);
-    system.init();
+    int pid = system.init();
+
+    if (pid == 0)
+        return 0;
 
     read_exit_command();
     std::cout << "Saliendo..." << std::endl;
@@ -29,6 +34,10 @@ void read_exit_command() {
         std::cin >> input;
 
         if (input == INTERRUPT_CMD) {
+            SellsRoute sells_route(O_WRONLY);
+
+            std::string msg = "close";
+            sells_route.send(msg, msg.size());
             return;
         }
 
