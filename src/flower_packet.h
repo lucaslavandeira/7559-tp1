@@ -5,7 +5,7 @@
 #include <vector>
 #include "flower_bouquet.h"
 
-#define PACKET_SIZE 2
+#define PACKET_SIZE 100
 
 class FlowerPacket {
 public:

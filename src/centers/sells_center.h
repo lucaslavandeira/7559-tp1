@@ -16,7 +16,6 @@ private:
     //std::unordered_map<std::string, int> flowers;
     std::unordered_map<std::string, std::vector<FlowerBouquet>> flowers;
 
-    FlowerPacket receive();
 
 public:
   DistributionRoute route;
@@ -24,6 +23,11 @@ public:
   explicit SellsCenter(int chain_id);
   void associate_route(DistributionRoute& distributionRoute);
   void work();
+
+private:
+    FlowerPacket receive();
+    void sell();
+    void process_sale(unsigned int rose_amount, unsigned int tulip_amount);
 };
 
 #endif

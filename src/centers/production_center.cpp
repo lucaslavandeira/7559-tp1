@@ -43,7 +43,7 @@ void ProductionCenter::work() {
         FlowerDrawer drawer = harvest();
 
         this->transport(drawer);
-        sleep(4);
+        usleep(250000);
     }
     this->route.close();
 }

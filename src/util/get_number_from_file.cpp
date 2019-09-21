@@ -6,6 +6,7 @@
 #include "../flower_bouquet.h"
 #include <sstream>
 #include <unordered_map>
+#include <queue>
 
 int get_number_from_file(const std::string& path) {
     struct stat buffer = {0};
@@ -21,15 +22,16 @@ int get_number_from_file(const std::string& path) {
     return std::atoi(number.c_str());
 }
 
-std::unordered_map<std::string, std::vector<FlowerBouquet>> get_flowers_from_file(const std::string& path) {
+std::unordered_map<std::string, std::queue<FlowerBouquet>> get_flowers_from_file(const std::string& path) {
     struct stat buffer = {0};
+    std::unordered_map<std::string, std::queue<FlowerBouquet>> flowers{};
+
     if (stat(path.c_str(), &buffer) < 0) {
         // No existe el archivo / error
-        return std::unordered_map<std::string, std::vector<FlowerBouquet>>();
+        return flowers;
     }
 
-    std::unordered_map<std::string, std::vector<FlowerBouquet>> flowers;
-    std::ifstream stream(path);   
+    std::ifstream stream(path);
 
     std::string line;
 
@@ -40,8 +42,8 @@ std::unordered_map<std::string, std::vector<FlowerBouquet>> get_flowers_from_fil
 
         if (!(iss >> type >> productor_id)) { break; } // error
 
-        flowers[type].push_back(FlowerBouquet(type, productor_id));
+        flowers[type].push(FlowerBouquet(type, productor_id));
     }
 
-    return std::move(flowers); 
+    return std::move(flowers);
 }
