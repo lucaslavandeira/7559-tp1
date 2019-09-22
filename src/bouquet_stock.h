@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "flower_bouquet.h"
+#include "orders/Order.h"
 #include <string>
 #include <unordered_map>
 #include <queue>
@@ -24,8 +25,11 @@ public:
 
     ~BouquetStock();
 
+    bool can_fulfill_order(const Order& order);
+    std::vector<FlowerBouquet> extract_flowers(Order& order);
+
+private:
     unsigned int stock_of_type(const std::string& type);
-    std::vector<FlowerBouquet> get_flowers(unsigned int rose_amount, unsigned int tulip_amount);
 };
 
 #endif

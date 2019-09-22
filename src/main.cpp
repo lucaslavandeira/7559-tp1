@@ -4,6 +4,7 @@
 #include "util/get_number_from_file.h"
 #include <fcntl.h>
 #include "ipc/sells_route.h"
+#include "orders/internet_orders.h"
 
 #define INTERRUPT_CMD "q"
 
@@ -13,7 +14,7 @@ void read_exit_command();
 
 int get_workers(int argc, char **argv);
 
-int main(int argc, char *argv[]) {
+int simulation(int argc, char *argv[]) {
     int workers_count = get_workers(argc, argv);
     GeneralSystem system(workers_count);
     int pid = system.init();
@@ -25,6 +26,10 @@ int main(int argc, char *argv[]) {
     std::cout << "Saliendo..." << std::endl;
     system.finish();
     return 0;
+}
+
+int main(int argc, char* argv[]) {
+    return simulation(argc, argv);
 }
 
 void read_exit_command() {

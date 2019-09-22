@@ -7,6 +7,7 @@
 #include "../flower_bouquet.h"
 #include "../bouquet_stock.h"
 #include "../ipc/sells_route.h"
+#include "../orders/internet_orders.h"
 
 class SellsCenter {
 private:
@@ -15,19 +16,19 @@ private:
     SellsRoute sells_route;
     //std::unordered_map<std::string, int> flowers;
     std::unordered_map<std::string, std::vector<FlowerBouquet>> flowers;
-
+    InternetOrders orders;
 
 public:
   DistributionRoute route;
 
-  explicit SellsCenter(int chain_id);
+  SellsCenter(int chain_id, const std::string& config_path);
   void associate_route(DistributionRoute& distributionRoute);
   void work();
 
 private:
     FlowerPacket receive();
     void sell();
-    void process_sale(unsigned int rose_amount, unsigned int tulip_amount);
+    void process_sale(Order& order);
 };
 
 #endif

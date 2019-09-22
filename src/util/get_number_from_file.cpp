@@ -18,7 +18,7 @@ int get_number_from_file(const std::string& path) {
     std::ifstream stream(path);
     std::string number;
     stream >> number;
-
+    stream.close();
     return std::atoi(number.c_str());
 }
 

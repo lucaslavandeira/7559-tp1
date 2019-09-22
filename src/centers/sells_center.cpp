@@ -1,18 +1,21 @@
 #include "sells_center.h"
-#include <zconf.h>
-#include <sys/stat.h>
-#include "../flower_bouquet.h"
 #include "../bouquet_stock.h"
 #include "../exceptions/NotEnoughBouquetsError.h"
+#include "../orders/internet_orders.h"
+#include "../util/home_dir.h"
 #include <iostream>
 #include <fcntl.h>
+#include <sstream>
 
 #define SELLS_CENTER_DIR_NAME "sells_center"
 #define FLOWERS_FILE_NAME "flowers"
 
-SellsCenter::SellsCenter(int chain_id) : chain_id(chain_id),
-                                         stock(chain_id, SELLS_CENTER_DIR_NAME),
-                                         sells_route(O_WRONLY) {
+SellsCenter::SellsCenter(int chain_id, const std::string& config_path) :
+        chain_id(chain_id),
+        stock(chain_id, SELLS_CENTER_DIR_NAME),
+        sells_route(O_WRONLY),
+        orders(chain_id, config_path + "orders/") {
+
     stock.init_stock();
 }
 
@@ -44,24 +47,24 @@ void SellsCenter::work() {
 }
 
 void SellsCenter::sell() {
-    bool client_comes = (random() % 100) > 60;
+    bool client_comes = (random() % 100) > 101;
     if (client_comes) {
         long tulips_amount = random() % 20;
         long roses_amount = random() % 20;
+        Order o(roses_amount, tulips_amount);
 
-        if (stock.stock_of_type("rose") < roses_amount) {
-            return;
+        if(stock.can_fulfill_order(o)) {
+            process_sale(o);
         }
-
-        if (stock.stock_of_type("rose") < tulips_amount) {
-            return;
-        }
-        process_sale(roses_amount, tulips_amount);
+        return;
     }
-    // read from file process next sale row
+    auto& order = orders.get_current_order();
+    if(stock.can_fulfill_order(order)) {
+        process_sale(order);
+    }
 }
 
-void SellsCenter::process_sale(unsigned int rose_amount, unsigned int tulip_amount) {
-    auto sale_flowers = stock.get_flowers(rose_amount, tulip_amount);
+void SellsCenter::process_sale(Order& order) {
+    auto sale_flowers = stock.extract_flowers(order);
     sells_route.send_sells(sale_flowers);
 }
