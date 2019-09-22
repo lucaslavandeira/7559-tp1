@@ -14,7 +14,6 @@
 SellsCenter::SellsCenter(int chain_id, const std::string& config_path) :
         chain_id(chain_id),
         stock(chain_id, SELLS_CENTER_DIR_NAME),
-        sells_route(O_WRONLY),
         orders(chain_id, config_path + "orders/") {
 
     stock.init_stock();

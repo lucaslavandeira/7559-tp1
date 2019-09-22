@@ -8,12 +8,12 @@
 
 class InternetOrders {
     const int chain_id;
-    const std::string& orders_dir;
+    const std::string orders_dir;
     unsigned int row;
     Order current_order;
     std::ifstream file;
 public:
-    InternetOrders(int chain_id, const std::string& orders_dir);
+    InternetOrders(int chain_id, const std::string orders_dir);
 
     Order & get_current_order();
     ~InternetOrders();

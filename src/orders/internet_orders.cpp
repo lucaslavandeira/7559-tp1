@@ -4,7 +4,7 @@
 #include "NullOrder.h"
 #include "../util/get_number_from_file.h"
 
-InternetOrders::InternetOrders(int chain_id, const std::string &orders_dir) :
+InternetOrders::InternetOrders(int chain_id, const std::string orders_dir) :
         chain_id(chain_id),
         orders_dir(orders_dir),
         row(0),

@@ -1,27 +1,38 @@
 #include "statistics_center.h"
-#include "../ipc/sells_route.h"
+#include "../notifications/statistics_notification.h"
 #include <iostream>
 #include <fcntl.h> 
 #include <zconf.h>
 #include <sys/stat.h>
 
-StatisticsCenter::StatisticsCenter() : sells_route(O_RDONLY) {
+#define STATISTICS_MSG "s"
+#define EXIT_MSG "c"
 
+StatisticsCenter::StatisticsCenter() {
+    this->best_flower = "Ninguna flor fue vendida";
+    this->best_productor = "Ningun productor vendio flores";
 }
 
 void StatisticsCenter::work() {
     while (true) {
         std::vector<FlowerBouquet> sells;
 
-        try {            
+        try {
+            std::string msg = this->sells_route.receive_message();
+
+            if (msg.compare(STATISTICS_MSG) == 0) {
+                this->show_statistics();
+                continue;
+            } else if (msg.compare(EXIT_MSG) == 0) {
+                break;
+            }
+
             sells = this->sells_route.retrieve_sells();
             this->update_statistics(sells);
         } catch (int e) {
             break;
         }
     }
-
-    //this->sells_route.delete_route();
 }
 
 void StatisticsCenter::update_statistics(std::vector<FlowerBouquet> sells) {
@@ -41,7 +52,7 @@ void StatisticsCenter::update_statistics(std::vector<FlowerBouquet> sells) {
 }
 
 void StatisticsCenter::update_best_productor() {
-    int best_productor;
+    int best_productor = -1;
     int sells_ammount = -1;
 
     for (auto& it : productors_statistics) {
@@ -51,11 +62,16 @@ void StatisticsCenter::update_best_productor() {
         }
     }
 
-    std::cout << "El productor más vendido es: " << best_productor << std::endl;
+    if (best_productor == -1) {
+        this->best_productor = "Ningun productor vendio flores";
+        return;
+    }
+
+    this->best_productor = std::to_string(best_productor);
 }
 
 void StatisticsCenter::update_best_selling_flower() {
-    std::string best_flower;
+    std::string best_flower = "";
     int sells_ammount = -1;
 
     for (auto& it : flowers_statistics) {
@@ -65,5 +81,15 @@ void StatisticsCenter::update_best_selling_flower() {
         }
     }
 
-    std::cout << "La flor más vendida fue: " << best_flower << std::endl;
+    if (best_flower.compare("") == 0) {
+        this->best_flower = "Ninguna flor fue vendida";
+        return;
+    }
+
+    this->best_flower = best_flower;
+}
+
+void StatisticsCenter::show_statistics() {
+    std::cout << "Productor que mas vendio: " << this->best_productor << std::endl
+                << "Flor mas vendida: " << this->best_flower << std::endl;
 }

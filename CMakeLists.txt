@@ -43,6 +43,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/src/util/*.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/src/routes/*.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/src/ipc/*.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/src/centers/*.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/src/notifications/*.cpp
 )
 
 #Removing main out of the model in SOURCES
@@ -62,7 +63,7 @@ target_include_directories(Project PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/util)
 target_include_directories(Project PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/routes)
 target_include_directories(Project PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/centers)
 target_include_directories(Project PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/ipc)
-
+target_include_directories(Project PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/notifications)
 
 add_executable(Test ${TEST})
 

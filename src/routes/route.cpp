@@ -18,14 +18,14 @@ void Route::create_route() {
 }
 
 void Route::send(const std::string &msg, size_t size) {
-    write(pipefds[1], (const char *) &size, 1);
+    write(pipefds[1], &size, sizeof(size_t));
     write(pipefds[1], msg.c_str(), size);
 }
 
 std::string Route::receive() {
-    char size;
+    size_t size;
 
-    int bytes = read(pipefds[0], &size, 1);
+    int bytes = read(pipefds[0], &size, sizeof(size_t));
 
     if (!bytes)
         return this->eof_msg;

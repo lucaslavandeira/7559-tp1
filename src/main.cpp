@@ -3,10 +3,11 @@
 #include "general_system.h"
 #include "util/get_number_from_file.h"
 #include <fcntl.h>
-#include "ipc/sells_route.h"
+#include "notifications/sells_notification.h"
 #include "orders/internet_orders.h"
 
 #define INTERRUPT_CMD "q"
+#define STATISTICS_CMD "s"
 
 std::vector<int> init(GeneralSystem &system, int count);
 
@@ -34,16 +35,15 @@ int main(int argc, char* argv[]) {
 
 void read_exit_command() {
     std::string input;
-
+    SellsNotification sells_route;
     while (true) {
         std::cin >> input;
 
         if (input == INTERRUPT_CMD) {
-            SellsRoute sells_route(O_WRONLY);
-
-            std::string msg = "close";
-            sells_route.send(msg, msg.size());
+            sells_route.send_close();
             return;
+        } else if (input == STATISTICS_CMD) {
+            sells_route.send_show_statistics();
         }
 
     }

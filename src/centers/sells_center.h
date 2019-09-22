@@ -6,14 +6,14 @@
 #include "../routes/distribution_route.h"
 #include "../flower_bouquet.h"
 #include "../bouquet_stock.h"
-#include "../ipc/sells_route.h"
+#include "../notifications/sells_notification.h"
 #include "../orders/internet_orders.h"
 
 class SellsCenter {
 private:
     int chain_id;
     BouquetStock stock;
-    SellsRoute sells_route;
+    SellsNotification sells_route;
     //std::unordered_map<std::string, int> flowers;
     std::unordered_map<std::string, std::vector<FlowerBouquet>> flowers;
     InternetOrders orders;
