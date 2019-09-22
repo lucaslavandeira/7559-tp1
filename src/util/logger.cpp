@@ -32,14 +32,18 @@ Logger& Logger::operator<<(std::ostream& (*os)(std::ostream&)) {
 
     size_t msg_size = msg.size();
 
-    memcpy(buffer, &msg_size, sizeof(size_t));
+    memmove(buffer, &msg_size, sizeof(size_t));
 
     total_size += sizeof(size_t);
 
-    memcpy(buffer +total_size, msg_c, strlen(msg_c));
+    memmove(buffer + total_size, msg_c, strlen(msg_c));
 
     total_size += strlen(msg_c);
 
     this->fifo.send(buffer, total_size);
+
+    this->ss.str("");
+    this->ss.clear();
+
     return *this;
 }

@@ -33,32 +33,6 @@ std::vector<FlowerBouquet> StatisticsNotification::retrieve_sells() {
     }
 
     return std::move(flowers);
-    /*std::vector<FlowerBouquet> flowers;
-
-    size_t total_flowers;
-    std::string total_flowers_str;
-    
-    this->fifo.receive(total_flowers_str);
-
-    total_flowers = std::stoi(total_flowers_str);
-
-    for (int i = 0; i < (int) total_flowers; i++) {
-        int productor_id;
-
-        std::string productor;
-
-        this->fifo.receive(productor);
-
-        productor_id = std::stoi(productor);
-
-        std::string type;
-
-        this->fifo.receive(type);
-
-        flowers.push_back(FlowerBouquet(std::move(type), productor_id));
-    }
-
-    return std::move(flowers);*/
 }
 
 std::string StatisticsNotification::receive_message() {

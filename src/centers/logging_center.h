@@ -7,6 +7,10 @@ class LoggingCenter {
 private:
     ReadFifo fifo;
     bool debug_mode;
+    std::string path;
+
+    std::string log_path() const;
+    void save_log(std::string& log);
 public:
     LoggingCenter(bool debug_mode);
     void work();
