@@ -3,6 +3,7 @@
 #include <map>
 #include <vector>
 #include <iostream>
+#include "../util/logger.h"
 
 DistributionCenter::DistributionCenter(int chain_id) : chain_id(chain_id) {
     this->rose_bouquets = 0;

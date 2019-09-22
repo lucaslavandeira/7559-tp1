@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fcntl.h>
 #include <sstream>
+#include "../util/logger.h"
 
 #define SELLS_CENTER_DIR_NAME "sells_center"
 #define FLOWERS_FILE_NAME "flowers"

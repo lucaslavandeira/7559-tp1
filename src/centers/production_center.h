@@ -3,11 +3,13 @@
 
 #include "../routes/production_route.h"
 #include "../flower_drawer.h"
+#include "../util/logger.h"
 
 #define BOUQUET_PRODUCTION 10
 
 class ProductionCenter {
     int chain_id;
+    Logger log;
 public:
     ProductionRoute route;
 

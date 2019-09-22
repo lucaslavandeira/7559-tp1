@@ -16,9 +16,13 @@ void read_exit_command();
 int get_workers(int argc, char **argv);
 
 int simulation(int argc, char *argv[]) {
+    bool debug_mode = true;
+
     int workers_count = get_workers(argc, argv);
+
     GeneralSystem system(workers_count);
-    int pid = system.init();
+
+    int pid = system.init(debug_mode);
 
     if (pid == 0)
         return 0;

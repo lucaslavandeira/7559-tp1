@@ -8,6 +8,7 @@
 #include "../bouquet_stock.h"
 #include "../notifications/sells_notification.h"
 #include "../orders/internet_orders.h"
+#include "../util/logger.h"
 
 class SellsCenter {
 private:
@@ -17,6 +18,7 @@ private:
     //std::unordered_map<std::string, int> flowers;
     std::unordered_map<std::string, std::vector<FlowerBouquet>> flowers;
     InternetOrders orders;
+    Logger log;
 
 public:
   DistributionRoute route;

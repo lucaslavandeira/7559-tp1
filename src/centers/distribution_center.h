@@ -8,9 +8,11 @@
 #include "../flower_packet.h"
 #include "../flower_bouquet.h"
 #include <vector>
+#include "../util/logger.h"
 
 class DistributionCenter {
     int chain_id;
+    Logger log;
 
     std::unordered_map<std::string, std::vector<FlowerBouquet>> flowers;
 public:

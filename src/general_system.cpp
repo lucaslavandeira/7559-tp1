@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <wait.h>
 #include "centers/statistics_center.h"
+#include "centers/logging_center.h"
 #include <iostream>
 
 GeneralSystem::GeneralSystem(int workers_count) :
@@ -41,19 +42,39 @@ int GeneralSystem::create_statistics_center() {
     return 0;
 }
 
-int GeneralSystem::init() {
+int GeneralSystem::create_logging_center(bool debug_mode) {
+    int pid = fork();
+
+    if (pid != 0) {
+        this->chain_pids.push_back(pid);
+        return pid;
+    }
+
+    LoggingCenter center(debug_mode);
+    center.work();
+
+    return 0;
+}
+
+int GeneralSystem::init(bool debug_mode) {
     std::vector<int> chain_ids;
+    int pid;
 
     for (int i = 0; i < workers_count; ++i) {
-        int pid = create_distribution_chain(i);
-        if (pid == 0) {
+        pid = create_distribution_chain(i);
+
+        if (pid == 0)
             return 0;
-        }
 
         chain_ids.push_back(i);
     }
 
-    return create_statistics_center();
+    pid = create_statistics_center();
+
+    if (pid == 0)
+        return 0;
+    
+    return create_logging_center(debug_mode);
 }
 
 void GeneralSystem::finish() {

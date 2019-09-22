@@ -13,9 +13,10 @@ private:
 
     int create_distribution_chain(int chain_id);
     int create_statistics_center();
+    int create_logging_center(bool debug_mode);
 public:
   explicit GeneralSystem(int workers_count);
-  int init();
+  int init(bool debug_mode);
   void finish();
 };
 

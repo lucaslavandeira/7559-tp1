@@ -8,8 +8,6 @@
 class StatisticsNotification {
 private:
     ReadFifo fifo;
-
-    std::string receive();
 public:
     StatisticsNotification();
     std::vector<FlowerBouquet> retrieve_sells();

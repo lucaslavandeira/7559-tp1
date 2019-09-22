@@ -17,23 +17,48 @@ std::vector<FlowerBouquet> StatisticsNotification::retrieve_sells() {
     std::vector<FlowerBouquet> flowers;
 
     size_t total_flowers;
-    std::string total_flow = this->receive();
 
-    total_flowers = std::stoi(total_flow);
+    this->fifo.receive(&total_flowers, sizeof(size_t));
 
     for (int i = 0; i < (int) total_flowers; i++) {
         int productor_id;
 
-        std::string productor = this->receive();
+        this->fifo.receive(&productor_id, sizeof(int));
 
-        productor_id = std::stoi(productor);
+        std::string type;
 
-        std::string type = this->receive();
+        this->fifo.receive(type);
 
         flowers.push_back(FlowerBouquet(std::move(type), productor_id));
     }
 
     return std::move(flowers);
+    /*std::vector<FlowerBouquet> flowers;
+
+    size_t total_flowers;
+    std::string total_flowers_str;
+    
+    this->fifo.receive(total_flowers_str);
+
+    total_flowers = std::stoi(total_flowers_str);
+
+    for (int i = 0; i < (int) total_flowers; i++) {
+        int productor_id;
+
+        std::string productor;
+
+        this->fifo.receive(productor);
+
+        productor_id = std::stoi(productor);
+
+        std::string type;
+
+        this->fifo.receive(type);
+
+        flowers.push_back(FlowerBouquet(std::move(type), productor_id));
+    }
+
+    return std::move(flowers);*/
 }
 
 std::string StatisticsNotification::receive_message() {
@@ -50,29 +75,3 @@ std::string StatisticsNotification::receive_message() {
 
     return std::move(s);
 }
-
-std::string StatisticsNotification::receive() {
-    char char_size;
-    std::string msg;
-
-    this->fifo.receive(&char_size, 1);
-
-    char buff[BYTES_RECEIVE + 1];
-
-    std::string s;
-    s.push_back(char_size);
-    size_t size = std::stoi(s);
-
-    while (size > BYTES_RECEIVE) {
-        this->fifo.receive(&buff, BYTES_RECEIVE);
-        msg.append(buff, BYTES_RECEIVE);
-        size -= BYTES_RECEIVE;
-    }
-
-    this->fifo.receive(&buff, size);
-
-    msg.append(buff, size);
-
-    return std::move(msg);
-}
-
