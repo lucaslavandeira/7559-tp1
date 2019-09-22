@@ -9,6 +9,7 @@
 
 #define SELLS_CENTER_DIR_NAME "sells_center"
 #define FLOWERS_FILE_NAME "flowers"
+#define CLIENT_ARRIVAL_CHANCE 60  // percent
 
 SellsCenter::SellsCenter(int chain_id, const std::string& config_path) :
         chain_id(chain_id),
@@ -47,7 +48,7 @@ void SellsCenter::work() {
 }
 
 void SellsCenter::sell() {
-    bool client_comes = (random() % 100) > 101;
+    bool client_comes = (random() % 100) < CLIENT_ARRIVAL_CHANCE;
     if (client_comes) {
         long tulips_amount = random() % 20;
         long roses_amount = random() % 20;
