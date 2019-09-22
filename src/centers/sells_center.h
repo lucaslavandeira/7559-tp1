@@ -29,7 +29,7 @@ public:
 
 private:
     FlowerPacket receive();
-    void sell();
+    bool sell();
     void process_sale(Order& order);
 };
 

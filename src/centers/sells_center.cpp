@@ -1,18 +1,12 @@
 #include "sells_center.h"
-#include "../bouquet_stock.h"
 #include "../exceptions/NotEnoughBouquetsError.h"
-#include "../orders/internet_orders.h"
-#include "../util/home_dir.h"
 #include <iostream>
-#include <fcntl.h>
-#include <sstream>
-#include "../util/logger.h"
 
 #define SELLS_CENTER_DIR_NAME "sells_center"
 #define FLOWERS_FILE_NAME "flowers"
 #define CLIENT_ARRIVAL_CHANCE 40  // percent
 
-SellsCenter::SellsCenter(int chain_id, const std::string& config_path) :
+SellsCenter::SellsCenter(int chain_id, const std::string &config_path) :
         chain_id(chain_id),
         stock(chain_id, SELLS_CENTER_DIR_NAME),
         orders(chain_id, config_path + "orders/") {
@@ -41,13 +35,13 @@ void SellsCenter::work() {
         } catch (int e) {
             break;
         }
-        sell();
+        while(sell()) {}
     }
 
     this->stock.save_stock();
 }
 
-void SellsCenter::sell() {
+bool SellsCenter::sell() {
     bool client_comes = (random() % 100) < CLIENT_ARRIVAL_CHANCE;
     if (client_comes) {
         long tulips_amount = random() % 20;
@@ -56,17 +50,25 @@ void SellsCenter::sell() {
 
         if(stock.can_fulfill_order(o)) {
             process_sale(o);
+            return true;
         }
-        return;
+        return false;
     }
+
+    if (!orders.orders_remaining()) {
+        return false;
+    }
+
     auto& order = orders.get_current_order();
-    std::cout << order.roses << " and " << order.tulips << std::endl;
     if(stock.can_fulfill_order(order)) {
         process_sale(order);
+        return true;
     }
+    return false;
 }
 
-void SellsCenter::process_sale(Order& order) {
+void SellsCenter::process_sale(Order &order) {
     auto sale_flowers = stock.extract_flowers(order);
     sells_route.send_sells(sale_flowers);
+    std::cout << "Venta de rosas " << order.roses << " y tulips " << order.tulips << " procesada" << std::endl;
 }

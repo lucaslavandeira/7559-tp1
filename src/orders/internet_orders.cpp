@@ -1,7 +1,6 @@
 #include <sstream>
 #include <iostream>
 #include "internet_orders.h"
-#include "NullOrder.h"
 #include "../util/get_number_from_file.h"
 #include "../util/create_directory_if_not_exists.h"
 
@@ -9,7 +8,7 @@ InternetOrders::InternetOrders(int chain_id, const std::string orders_dir) :
         chain_id(chain_id),
         orders_dir(orders_dir),
         row(0),
-        current_order(NullOrder()) {
+        current_order(Order(0, 0)) {
     const std::string& dir = get_order_dir();
     create_directory_if_not_exists(dir);
     row = get_number_from_file(dir + "last_row");
@@ -28,7 +27,7 @@ void InternetOrders::parse_line() {
     if (!file.fail()) {
         current_order = Order(rose, tulip);
     } else {
-        current_order = NullOrder();
+        out_of_orders = true;
     }
 }
 
@@ -52,4 +51,8 @@ InternetOrders::~InternetOrders() {
     std::ofstream stream(path);
 
     stream << row;
+}
+
+bool InternetOrders::orders_remaining() {
+    return !out_of_orders;
 }

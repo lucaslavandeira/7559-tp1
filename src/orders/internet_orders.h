@@ -12,10 +12,12 @@ class InternetOrders {
     unsigned int row;
     Order current_order;
     std::ifstream file;
+    bool out_of_orders = false;
 public:
     InternetOrders(int chain_id, const std::string orders_dir);
 
     Order & get_current_order();
+    bool orders_remaining();
     ~InternetOrders();
 
 private:
