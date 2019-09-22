@@ -2,7 +2,6 @@
 #include "flower_bouquet.h"
 #include <string>
 #include <vector>
-#include <unordered_map>
 #include "util/home_dir.h"
 #include "util/get_number_from_file.h"
 #include "config.h"
@@ -84,13 +83,13 @@ BouquetStock::extract_flowers(Order& order) {
         throw NotEnoughBouquetsError("tulip", order.tulips, stock_of_type("tulip"));
     }
     std::vector<FlowerBouquet> result;
-    std::queue<FlowerBouquet> roses = flowers["rose"];
+    std::queue<FlowerBouquet>& roses = flowers["rose"];
     while(result.size() < order.roses) {
         result.push_back(roses.front());
         roses.pop();
     }
 
-    std::queue<FlowerBouquet> tulips = flowers["tulip"];
+    std::queue<FlowerBouquet>& tulips = flowers["tulip"];
     while(result.size() < order.roses + order.tulips) {
         result.push_back(tulips.front());
         tulips.pop();

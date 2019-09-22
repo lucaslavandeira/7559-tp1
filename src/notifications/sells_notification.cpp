@@ -46,8 +46,6 @@ void SellsNotification::send_sells(std::vector<FlowerBouquet> flowers) {
         i += strlen(type);
     }
 
-    std::cout << "Tam buffer used: " << i << std::endl;
-
     this->fifo.send(buffer, i);
 }
 

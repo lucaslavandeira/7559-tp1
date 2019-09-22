@@ -70,5 +70,4 @@ bool SellsCenter::sell() {
 void SellsCenter::process_sale(Order &order) {
     auto sale_flowers = stock.extract_flowers(order);
     sells_route.send_sells(sale_flowers);
-    std::cout << "Venta de rosas " << order.roses << " y tulips " << order.tulips << " procesada" << std::endl;
 }
