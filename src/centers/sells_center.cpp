@@ -9,7 +9,7 @@
 
 #define SELLS_CENTER_DIR_NAME "sells_center"
 #define FLOWERS_FILE_NAME "flowers"
-#define CLIENT_ARRIVAL_CHANCE 60  // percent
+#define CLIENT_ARRIVAL_CHANCE 40  // percent
 
 SellsCenter::SellsCenter(int chain_id, const std::string& config_path) :
         chain_id(chain_id),
@@ -59,6 +59,7 @@ void SellsCenter::sell() {
         return;
     }
     auto& order = orders.get_current_order();
+    std::cout << order.roses << " and " << order.tulips << std::endl;
     if(stock.can_fulfill_order(order)) {
         process_sale(order);
     }
