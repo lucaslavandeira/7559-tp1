@@ -3,6 +3,7 @@
 #include "internet_orders.h"
 #include "NullOrder.h"
 #include "../util/get_number_from_file.h"
+#include "../util/create_directory_if_not_exists.h"
 
 InternetOrders::InternetOrders(int chain_id, const std::string orders_dir) :
         chain_id(chain_id),
@@ -10,10 +11,13 @@ InternetOrders::InternetOrders(int chain_id, const std::string orders_dir) :
         row(0),
         current_order(NullOrder()) {
     const std::string& dir = get_order_dir();
+    create_directory_if_not_exists(dir);
     row = get_number_from_file(dir + "last_row");
     file = std::ifstream(dir + "orders");
-    if (file.good()) {
+    unsigned int start_row = 0;
+    while(file.good() && start_row <= row) {
         parse_line();
+        start_row++;
     }
 }
 
@@ -23,7 +27,6 @@ void InternetOrders::parse_line() {
     file >> rose >> tulip;
     if (!file.fail()) {
         current_order = Order(rose, tulip);
-        row++;
     } else {
         current_order = NullOrder();
     }
@@ -32,6 +35,7 @@ void InternetOrders::parse_line() {
 Order& InternetOrders::get_current_order() {
     if (current_order.isFulfilled()) {
         parse_line();
+        row++;
     }
 
     return current_order;
@@ -45,6 +49,7 @@ std::string InternetOrders::get_order_dir() {
 
 InternetOrders::~InternetOrders() {
     std::string path = get_order_dir() + "last_row";
-    std::fstream stream(path);
-    stream << row;  // Esto NO anda, no se por qué
+    std::ofstream stream(path);
+
+    stream << row;
 }
