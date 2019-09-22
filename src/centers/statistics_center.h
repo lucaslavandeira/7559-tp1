@@ -8,6 +8,9 @@
 
 class StatisticsCenter {
 private:
+    static const std::string no_flower_msg;
+    static const std::string no_productor_msg;
+
     std::unordered_map<int, int> productors_statistics;
     std::unordered_map<std::string, int> flowers_statistics;
     std::string best_flower;

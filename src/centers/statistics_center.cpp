@@ -8,9 +8,12 @@
 #define STATISTICS_MSG "s"
 #define EXIT_MSG "c"
 
+const std::string StatisticsCenter::no_flower_msg = "Ninguna flor fue vendida";
+const std::string StatisticsCenter::no_productor_msg = "Ningun productor vendio flores";
+
 StatisticsCenter::StatisticsCenter() {
-    this->best_flower = "Ninguna flor fue vendida";
-    this->best_productor = "Ningun productor vendio flores";
+    this->best_flower = no_flower_msg;
+    this->best_productor = no_productor_msg;
 }
 
 void StatisticsCenter::work() {
@@ -63,7 +66,7 @@ void StatisticsCenter::update_best_productor() {
     }
 
     if (best_productor == -1) {
-        this->best_productor = "Ningun productor vendio flores";
+        this->best_productor = no_productor_msg;
         return;
     }
 
@@ -82,7 +85,7 @@ void StatisticsCenter::update_best_selling_flower() {
     }
 
     if (best_flower.compare("") == 0) {
-        this->best_flower = "Ninguna flor fue vendida";
+        this->best_flower = no_flower_msg;
         return;
     }
 
