@@ -49,7 +49,7 @@ bool SellsCenter::sell() {
         Order o(roses_amount, tulips_amount);
 
         if(stock.can_fulfill_order(o)) {
-            process_sale(o);
+            process_sale(o, false);
             return true;
         }
         return false;
@@ -61,14 +61,17 @@ bool SellsCenter::sell() {
 
     auto& order = orders.get_current_order();
     if(stock.can_fulfill_order(order)) {
-        process_sale(order);
+        process_sale(order, true);
         return true;
     }
     return false;
 }
 
-void SellsCenter::process_sale(Order &order) {
+void SellsCenter::process_sale(Order &order, bool make_ticket) {
     auto sale_flowers = stock.extract_flowers(order);
+
+    if (make_ticket)
+        this->make_ticket(sale_flowers);
 
     int ammount_tulips = 0;
     int ammount_roses = 0;
@@ -85,4 +88,40 @@ void SellsCenter::process_sale(Order &order) {
     log << "[SELLS] [" << chain_id << "] " << "Vendi " << ammount_tulips << " tulips" << std::endl;
 
     sells_route.send_sells(sale_flowers);
+}
+
+void SellsCenter::make_ticket(std::vector<FlowerBouquet>& flowers) {
+    std::unordered_map<int, int> roses_by_productor;
+    std::unordered_map<int, int> tulips_by_productor;
+
+    int total_flowers = flowers.size();
+
+    for (int i = 0; i < total_flowers; i++) {
+        if (flowers[i].type.compare("rose") == 0)
+            roses_by_productor[flowers[i].productor_id]++;
+        else if (flowers[i].type.compare("tulip") == 0)
+            tulips_by_productor[flowers[i].productor_id]++;
+    }
+
+    log << "---------TICKET DE COMPRA-----------" << std::endl;
+    log << "Se vendieron un total de " << total_flowers << " flores" << std::endl;
+
+    int total_roses = 0;
+
+    for (auto& it : roses_by_productor) {
+        log << it.second << " rosas del productor " << it.first << std::endl;
+        total_roses += it.second;
+    }
+
+    log << "Con un total de " << total_roses << " rosas" << std::endl;
+
+    int total_tulips = 0;
+
+    for (auto& it : tulips_by_productor) {
+        log << it.second << " tulipanes del productor " << it.first << std::endl;
+        total_tulips += it.second;
+    }
+
+    log << "Con un total de " << total_tulips << " tulipanes" << std::endl;
+    log << "---------FIN DE TICKET DE COMPRA-----------" << std::endl;
 }

@@ -30,7 +30,8 @@ public:
 private:
     FlowerPacket receive();
     bool sell();
-    void process_sale(Order& order);
+    void process_sale(Order& order, bool make_ticket);
+    void make_ticket(std::vector<FlowerBouquet>& flowers);
 };
 
 #endif
