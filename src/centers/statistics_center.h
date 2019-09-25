@@ -22,6 +22,12 @@ private:
     void update_best_productor();
     void update_best_selling_flower();
     void show_statistics();
+    void save_statistics();
+    void save_best_productor();
+    void save_best_flower();
+    void load_best_productor();
+    void load_best_flower();
+    std::string statistics_path(const char* name) const;
 public:
     StatisticsCenter();
     void work();

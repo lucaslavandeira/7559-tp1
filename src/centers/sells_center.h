@@ -5,7 +5,7 @@
 #include <string>
 #include "../routes/distribution_route.h"
 #include "../flower_bouquet.h"
-#include "../bouquet_stock.h"
+#include "../bouquet_stock_sells.h"
 #include "../notifications/sells_notification.h"
 #include "../orders/internet_orders.h"
 #include "../util/logger.h"
@@ -13,7 +13,7 @@
 class SellsCenter {
 private:
     int chain_id;
-    BouquetStock stock;
+    BouquetStockSells stock;
     SellsNotification sells_route;
     //std::unordered_map<std::string, int> flowers;
     std::unordered_map<std::string, std::vector<FlowerBouquet>> flowers;

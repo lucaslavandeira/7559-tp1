@@ -13,10 +13,11 @@
 class BouquetStock {
 private:
     int chain_id;
-    std::unordered_map<std::string, std::queue<FlowerBouquet>> flowers;
     std::string save_route;
 
     std::string flower_path(const std::string &type) const;
+protected:
+    std::unordered_map<std::string, std::queue<FlowerBouquet>> flowers;
 public:
     BouquetStock(int chain_id, const std::string& save_route);
     void init_stock();
@@ -25,10 +26,6 @@ public:
 
     ~BouquetStock();
 
-    bool can_fulfill_order(const Order& order);
-    std::vector<FlowerBouquet> extract_flowers(Order& order);
-
-private:
     unsigned int stock_of_type(const std::string& type);
 };
 

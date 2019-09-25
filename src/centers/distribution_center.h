@@ -9,17 +9,17 @@
 #include "../flower_bouquet.h"
 #include <vector>
 #include "../util/logger.h"
+#include "../bouquet_stock_distribution.h"
 
 class DistributionCenter {
     int chain_id;
     Logger log;
-
+    BouquetStockDistribution stock;
     std::unordered_map<std::string, std::vector<FlowerBouquet>> flowers;
+
 public:
   DistributionRoute send_route;
   ProductionRoute recv_route;
-  int rose_bouquets;
-  int tulip_bouquets;
 
   explicit DistributionCenter(int chain_id);
   void receive();

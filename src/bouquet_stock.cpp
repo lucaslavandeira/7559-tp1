@@ -72,33 +72,3 @@ BouquetStock::~BouquetStock() {
 unsigned int BouquetStock::stock_of_type(const std::string &type) {
     return flowers[type].size();
 }
-
-std::vector<FlowerBouquet>
-BouquetStock::extract_flowers(Order& order) {
-    if (stock_of_type("rose") < order.roses) {
-        throw NotEnoughBouquetsError("rose", order.roses, stock_of_type("rose"));
-    }
-
-    if (stock_of_type("tulip") < order.tulips) {
-        throw NotEnoughBouquetsError("tulip", order.tulips, stock_of_type("tulip"));
-    }
-    std::vector<FlowerBouquet> result;
-    std::queue<FlowerBouquet>& roses = flowers["rose"];
-    while(result.size() < order.roses) {
-        result.push_back(roses.front());
-        roses.pop();
-    }
-
-    std::queue<FlowerBouquet>& tulips = flowers["tulip"];
-    while(result.size() < order.roses + order.tulips) {
-        result.push_back(tulips.front());
-        tulips.pop();
-    }
-    order.markFulfilled();
-    return result;
-}
-
-bool BouquetStock::can_fulfill_order(const Order &order) {
-    return stock_of_type("rose") >= order.roses &&
-        stock_of_type("tulip") >= order.tulips;
-}
