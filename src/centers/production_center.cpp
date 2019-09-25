@@ -19,8 +19,8 @@ FlowerDrawer ProductionCenter::harvest() {
 
     std::vector<FlowerBouquet> flowers;
 
-    log << "[" << chain_id << "] " << "Se produjeron " << ammount_rose_bouquets << " rosas" << std::endl;
-    //log << "[" << chain_id << "] " << "Se produjeron " << ammount_tulips_bouquets << " tulips";
+    log << "[PRODUCTION] [" << chain_id << "] " << "Se produjeron " << ammount_rose_bouquets << " rosas" << std::endl;
+    log << "[PRODUCTION] [" << chain_id << "] " << "Se produjeron " << ammount_tulips_bouquets << " tulips" << std::endl;
 
     for (int i = 0; i < ammount_rose_bouquets; i++) {
         flowers.push_back(FlowerBouquet("rose", this->chain_id));

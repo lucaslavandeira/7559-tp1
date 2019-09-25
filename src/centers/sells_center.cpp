@@ -23,7 +23,7 @@ FlowerPacket SellsCenter::receive() {
 
     this->stock.add_bouquets(packet.flowers);
 
-    std::cout << "Recibi " << packet.flowers.size() << " de " << packet.type << std::endl;
+    log << "[SELLS] [" << chain_id << "] " << "Recibi " << packet.flowers.size() << " de " << packet.type << " tulips" << std::endl;
 
     return packet;
 }
@@ -69,5 +69,20 @@ bool SellsCenter::sell() {
 
 void SellsCenter::process_sale(Order &order) {
     auto sale_flowers = stock.extract_flowers(order);
+
+    int ammount_tulips = 0;
+    int ammount_roses = 0;
+
+    for (int i = 0; i < (int) sale_flowers.size(); i++) {
+        if (sale_flowers[i].type.compare("rose") == 0) {
+            ammount_roses++;
+        } else if (sale_flowers[i].type.compare("tulip") == 0) {
+            ammount_tulips++;
+        }
+    }
+
+    log << "[SELLS] [" << chain_id << "] " << "Vendi " << ammount_roses << " roses" << std::endl;
+    log << "[SELLS] [" << chain_id << "] " << "Vendi " << ammount_tulips << " tulips" << std::endl;
+
     sells_route.send_sells(sale_flowers);
 }
