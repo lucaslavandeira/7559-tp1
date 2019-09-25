@@ -14,13 +14,21 @@ public:
     ProductionRoute route;
 
     explicit ProductionCenter(int chain_id);
-
+    /*
+    Associates this production center with a distribution center
+    */
     void associate_route(ProductionRoute &route);
-
+    /*
+    Transport drawers of flowers to the associated distribution center
+    */
     void transport(FlowerDrawer drawer);
-
+    /*
+    Produces BOUQUET_PRODUCTION flowers
+    */
     FlowerDrawer harvest();
-
+    /*
+    Work loop
+    */
     void work();
 };
 

@@ -7,6 +7,9 @@
 class WriteFifo : public Fifo {
 public:
     WriteFifo(std::string route);
+    /*
+    Writes  size bytes from the buffer into the Fifo
+    */
     void send(const void* buffer, size_t size);
 };
 

@@ -17,7 +17,6 @@ Fifo::Fifo(std::string route, int mode) {
     this->fd = open(fifo, mode);
   
     if (this->fd == -1) {
-      std::cout << "Fifo couldn't be opened" << std::endl;
       throw;
     }
 }

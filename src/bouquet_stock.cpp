@@ -27,7 +27,6 @@ void BouquetStock::save_stock() {
 
     std::ofstream f(path);
     if (!f.good()) {
-        std::cout << "No se abrió bien el file" << path << std::endl;
         return;
     }
 

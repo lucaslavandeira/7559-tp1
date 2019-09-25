@@ -13,6 +13,9 @@ private:
     void save_log(std::string& log);
 public:
     LoggingCenter(bool debug_mode);
+    /*
+    Logging center work loop
+    */
     void work();
 };
 

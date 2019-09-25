@@ -12,7 +12,6 @@ Route::Route(std::string eof_msg) {
 
 void Route::create_route() {
     if (pipe(pipefds) != 0) {
-        std::cout << "Error en pipe" << std::strerror(errno) << std::endl;
         throw; // Manejar errores!!!???
     }
 }

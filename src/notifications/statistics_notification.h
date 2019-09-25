@@ -10,7 +10,16 @@ private:
     ReadFifo fifo;
 public:
     StatisticsNotification();
+    /*
+    Receives sells from distribution centers reading the Fifo
+    */
     std::vector<FlowerBouquet> retrieve_sells();
+    /*
+    Receives messages operate:
+    Normal messages: Receives sells
+    Show message: Prints out information about sells
+    Close: Close the statistics center
+    */
     std::string receive_message();
 };
 

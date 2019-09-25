@@ -14,7 +14,10 @@ public:
     BouquetStockDistribution(int chain_id, const std::string& save_route);
 
     ~BouquetStockDistribution();
-
+    /*
+    Extracts ammount flowers of the type established.
+    If there is no such ammount of flowers, throws NotEnoughBouquetError exception
+    */
     std::vector<FlowerBouquet> extract_flowers(std::string type, int ammount);
 };
 

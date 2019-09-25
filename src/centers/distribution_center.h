@@ -22,11 +22,27 @@ public:
   ProductionRoute recv_route;
 
   explicit DistributionCenter(int chain_id);
+  /*
+  Method to receive bouquets from the production center
+  */
   void receive();
+  /*
+  Method to send bouquets to the sells center
+  */
   void send_to_center();
-
+  /*
+  Associates this distribution center to a production center
+  Everything sent through the production center will arrive here
+  */
   void associate_receive_route(ProductionRoute& route);
+  /*
+  Associates this distribution center to a sells center
+  Everything sent through the distribution center will arrive to a sells center
+  */
   void associate_send_route(DistributionRoute& route);
+  /*
+  Distribution center loop for working
+  */
   void work();
 
 private:

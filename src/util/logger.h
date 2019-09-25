@@ -11,6 +11,9 @@ private:
     std::ostringstream ss;
 
 public:
+    /*
+    Create logs and sends them through the Fifo to a LoggingCenter
+    */
     Logger();
     Logger& operator<<(const std::string& msg);
     Logger& operator<<(int val);

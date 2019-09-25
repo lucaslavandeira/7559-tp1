@@ -28,7 +28,6 @@ int simulation(int argc, char *argv[]) {
         return 0;
 
     read_exit_command();
-    std::cout << "Saliendo..." << std::endl;
     system.finish();
     return 0;
 }

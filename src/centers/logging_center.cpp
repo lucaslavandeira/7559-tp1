@@ -24,7 +24,6 @@ void LoggingCenter::work() {
         bytes = this->fifo.receive(msg);
 
         if (!bytes) {
-            std::cout << "Loggin center closed" << std::endl;
             break;
         }
 
@@ -38,7 +37,6 @@ void LoggingCenter::save_log(std::string& log) {
     std::ofstream f(path, std::ios_base::app);
 
     if (!f.good()) {
-        std::cout << "No se abrió bien el file" << path << std::endl;
         return;
     }
 

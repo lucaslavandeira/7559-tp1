@@ -20,12 +20,23 @@ protected:
     std::unordered_map<std::string, std::queue<FlowerBouquet>> flowers;
 public:
     BouquetStock(int chain_id, const std::string& save_route);
+    /*
+    Loads the stock (if exists) from file
+    */    
     void init_stock();
+    /*
+    Saves the stock into a file
+    */    
     void save_stock();
+    /*
+    Add bouquets to the stock
+    */   
     void add_bouquets(const std::vector<FlowerBouquet>& flowers);
 
     ~BouquetStock();
-
+    /*
+    Returns the ammount of flowers of type "type" that are in the current stock
+    */
     unsigned int stock_of_type(const std::string& type);
 };
 
